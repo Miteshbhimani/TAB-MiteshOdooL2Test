@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_inherit_return_request" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.return.request</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_view_return_requests" type="object"
+                        class="oe_stat_button" icon="fa-undo"
+                        invisible="return_request_count == 0">
+                    <field name="return_request_count" widget="statinfo" string="Returns"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
