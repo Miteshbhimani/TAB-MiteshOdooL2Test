@@ -46,6 +46,3 @@ top-right corner of the form.
 
 - Default search filters for each state (Draft/Submitted/Approved/Rejected).
 - Group-by filters for Customer, Status, and Month (monthly-grouped list).
-- One unit test covering the return-quantity-vs-delivered-quantity validation
-  (`tests/test_return_request.py`).
-
