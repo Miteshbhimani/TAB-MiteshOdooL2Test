@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_return_request_salesman,product.return.request.salesman,model_product_return_request,sales_team.group_sale_salesman,1,1,1,1
+access_product_return_request_manager,product.return.request.manager,model_product_return_request,group_return_manager,1,1,1,1
