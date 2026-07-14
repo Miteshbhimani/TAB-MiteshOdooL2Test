@@ -29,13 +29,28 @@ class ProductReturnRequest(models.Model):
             ('rejected', 'Rejected'),
         ], string='Status', default='draft', tracking=True, copy=False)
 
+    available_product_ids = fields.Many2many('product.product', compute='_compute_available_product_ids')
+
+    @api.depends('sale_order_id')
+    def _compute_available_product_ids(self):
+        for rec in self:
+            if rec.sale_order_id:
+                rec.available_product_ids = rec.sale_order_id.order_line.mapped('product_id')
+            else:
+                rec.available_product_ids = False
+
+    # Optional: reset product when SO changes
     @api.onchange('sale_order_id')
     def _onchange_sale_order_id(self):
         self.product_id = False
-        if self.sale_order_id:
-            order_products = self.sale_order_id.order_line.mapped('product_id')
-            return {'domain': {'product_id': [('id', 'in', order_products.ids)]}}
-        return {'domain': {'product_id': []}}
+
+    # @api.onchange('sale_order_id')
+    # def _onchange_sale_order_id(self):
+    #     self.product_id = False
+    #     if self.sale_order_id:
+    #         order_products = self.sale_order_id.order_line.mapped('product_id')
+    #         return {'domain': {'product_id': [('id', 'in', order_products.ids)]}}
+    #     return {'domain': {'product_id': []}}
 
     @api.constrains('reason', 'reason_note')
     def _check_reason_note(self):
